@@ -68,17 +68,23 @@ All images except Retry are scanned non-stop, every 0.05 seconds. All mouse move
 
 Roblox kicks you out now and then. The **Disconnected** box (Leave / Reconnect) is searched for all the time. The moment it shows up, **every other image search stops** and the rejoin protocol runs:
 
-1. Click **Leave** (the left button of the box)
-2. Click **Search** once, press Ctrl+A, type the game name (default `Jujutsu: Zero`, changeable in settings) and press Enter
+1. Click **Leave** (the left button of the box). Then, before anything else, look for the big blue **Play** button for up to 15 seconds:
+   - **Play found**: click it **5 times**, then skip straight to step 4 (**Gamemodes**).
+   - **Not found within 15 seconds**: click **Home** once (light mode or dark mode, both are searched), then carry on with step 2.
+2. Look for the **Search** bar (light mode or dark mode, both are searched), click it once, press Ctrl+A, type the game name (default `Jujutsu: Zero`, changeable in settings) and press Enter
 3. **Play** (big blue button) x3 -> **Gamemodes** x1 -> **Raids** x3 -> **Create** x3 -> **Projection** x3 -> **Calamity** x3
 4. **Modifiers** x1 -> **Weaken** x1 -> **Friends Only** x1 -> **Create** x3 -> **Start** x5
 
-It runs strictly in order, step 1 to 13. Each step only searches for its own image, glides the mouse to it, clicks, then waits for that button to leave the screen before the next step starts, so the two Create buttons can never be mixed up (Create is only searched at step 6 and step 12, and a hit is ignored if the other Create fits better at the same spot). The stats window shows `REJOINING step N/13`. If the Disconnected box is still there or comes back, it goes back to step 1. When Start has been clicked the normal macro carries on until the next kick.
+It runs strictly in order, step 1 to 13 (when Play is found in step 1 it jumps ahead and the Gamemodes step is where the order picks up again). Each step only searches for its own image, glides the mouse to it, clicks, then waits for that button to leave the screen before the next step starts, so the two Create buttons can never be mixed up (Create is only searched at step 6 and step 12, and a hit is ignored if the other Create fits better at the same spot). The stats window shows `REJOINING step N/13`. If the Disconnected box is still there or comes back, it goes back to step 1. When Start has been clicked the normal macro carries on until the next kick.
 
-- Every rejoin image has its own search area with the same X/Y boxes and **GRAB AREA / BL / TR** buttons (inside the **AUTO REJOIN** card). **Fullscreen scan** overrides all of them.
+- Every rejoin button has its own search area with the same X/Y boxes and **GRAB AREA / BL / TR** buttons (inside the **AUTO REJOIN** card). **Fullscreen scan** overrides all of them.
+- **Light and dark mode**: Home, Search and Play each come in more than one look (`Rejoin_Home.png` + `Rejoin_HomeDark.png`, `Rejoin_Search.png` + `Rejoin_SearchDark.png`, `Rejoin_Play.png` + `Rejoin_Play2.png`). Both looks are searched at the same time inside the **same** box, and whichever fits better is clicked, so each button still has just one row of numbers. The log says which look was used, e.g. `Rejoin: Home (dark mode)`.
+- The Play button is also checked for its blue colour, so a bright icon on a dark page (like the Home icon) can never be mistaken for it.
+- The new `Rejoin_*.png` files are written next to the `.bat` the first time it runs if they are missing. To change one, replace that PNG with a fresh crop.
 - The Disconnected box is scanned non-stop, so give it a small search area for the best speed.
 - The stats window shows `REJOINING` while it runs and counts the rejoins.
 - If a step image is not found, the log warns every 60 seconds. Click it yourself and the protocol carries on from there. The stop key aborts it.
+- The 15 second Play check in step 1 has no warnings or screenshots of its own, because not finding Play there is normal and just means "go via Home".
 - Switch it off with **Auto rejoin: Off**.
 
 ## Slots: key or click
