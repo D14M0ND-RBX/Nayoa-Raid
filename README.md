@@ -1,5 +1,7 @@
 # Calamity Cleaver
 
+DOWNLOAD BOTH ZIPS AND EXTRACT INTO THE SAME FOLDER. (file was to big had to split into 2 parts sorry)
+
 Auto-raid macro for **Jujutsu Zero** (Nayoa Calamity). It watches the screen for six images, replays the raid for you, and keeps a win counter. If you die it retries straight away.
 
 ## Quick start
