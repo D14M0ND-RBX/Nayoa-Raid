@@ -54,6 +54,7 @@ All images except Retry are scanned non-stop, every 0.05 seconds. All mouse move
 - **Loops**: an amount, or Inf.
 - **Stop key** (F1-F12): stops the macro; press it again to restart it. Loops and Time keep counting.
 - **Log clearer**: the console is wiped and redrawn every 5 to 30 minutes.
+- **Modifiers**: tick (✔) or cross (✖) for **Weaken** and **Hardcore**. Only used by auto rejoin when it creates the raid (see below). Defaults: Weaken on, Hardcore off.
 - **Screen**: Half-Screen, Corner Screen or Full Screen. Smaller layouts also try smaller copies of the images, in case Roblox's UI shrinks.
 - **Resolution**: display only. It does nothing.
 
@@ -73,7 +74,10 @@ Roblox kicks you out now and then. The **Disconnected** box (Leave / Reconnect) 
    - **Not found within 15 seconds**: click **Home** once (light mode or dark mode, both are searched), then carry on with step 2.
 2. Look for the **Search** bar (light mode or dark mode, both are searched), click it once, press Ctrl+A, type the game name (default `Jujutsu: Zero`, changeable in settings) and press Enter
 3. **Play** (big blue button) x3 -> **Gamemodes** x1 -> **Raids** x3 -> **Create** x3 -> **Projection** x3 -> **Calamity** x3
-4. **Modifiers** x1 -> **Weaken** x1 -> **Friends Only** x1 -> **Create** x3 -> **Start** x5
+4. **Modifiers** x1 -> **Weaken** x1 -> **Hardcore** x1 -> **Friends Only** -> **Create** x3 -> **Start** x5
+   - Only the modifiers ticked under **MODIFIERS** are selected (Weaken first, then Hardcore, in the same step).
+   - If neither is ticked, the Modifiers button is not clicked at all and it goes straight to **Friends Only**.
+   - The step count in the stats window adjusts (`REJOINING step N/13`, `/14` with both, `/11` with none).
 
 It runs strictly in order, step 1 to 13 (when Play is found in step 1 it jumps ahead and the Gamemodes step is where the order picks up again). Each step only searches for its own image, glides the mouse to it, clicks, then waits for that button to leave the screen before the next step starts, so the two Create buttons can never be mixed up (Create is only searched at step 6 and step 12, and a hit is ignored if the other Create fits better at the same spot). The stats window shows `REJOINING step N/13`. If the Disconnected box is still there or comes back, it goes back to step 1. When Start has been clicked the normal macro carries on until the next kick.
 
