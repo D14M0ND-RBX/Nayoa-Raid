@@ -28,14 +28,14 @@ The box must be bigger than the image itself, so leave a little room around it.
 
 | Image | Meaning | Action |
 | --- | --- | --- |
-| Ready | Raid is starting | Glides to it and clicks 3 times |
-| Lv. 13,000 Zen'in Elite | Raid started | Starts the attack rotation |
+| Ready | Raid is starting | Glides to it, clicks 3 times, then presses your slot(s): 1, 2, or 1 then 2 if both are picked |
+| Lv. 13,000 Zen'in Elite | Raid started | Equips your slot and starts the attack rotation |
 | Chase took too long... | Phase 2 | Logged, rotation keeps going |
 | Raid Summary: Successful | Raid beaten | Loops +1, then looks for Retry |
 | Raid Summary: Failure | You died | Loops unchanged, then looks for Retry |
 | Retry | Only searched after a win or fail | Glides to it and clicks 5 times |
 
-All images except Retry are scanned non-stop, every 0.05 seconds. All mouse movement is a curved, eased glide.
+All images except Retry are scanned non-stop, every 0.05 seconds. All mouse movement is a curved, eased glide sent as real mouse input, with a short hover before each click so Roblox registers it. Scanning pauses for the second or two the mouse is moving and clicking, so it stays smooth.
 
 ## The raid counter
 
@@ -49,6 +49,7 @@ All images except Retry are scanned non-stop, every 0.05 seconds. All mouse move
 
 - **Search areas**: one rectangle per image (bottom-left X/Y and top-right X/Y).
 - **Attack rotation**: keys from `c f x r t v z y`, pressed in that order, over and over during a raid.
+- **Slots**: slot 1, slot 2 or both. With one slot, the macro presses it when the raid starts. With both, it runs one full pass of the attack rotation on a slot, swaps to the other slot, runs another pass, and keeps alternating.
 - **Heavenly restriction / Cursed technique / Weapon**: pick one restriction or none. Physical locks cursed techniques, Sorcerer locks weapons. Up to 2 selected per list. These are saved and shown in the console header, but they do not change what the macro presses.
 - **Loops**: an amount, or Inf.
 - **Stop key** (F1-F12): stops the macro; press it again to restart it. Loops and Time keep counting.
@@ -62,3 +63,31 @@ All images except Retry are scanned non-stop, every 0.05 seconds. All mouse move
 - **Scanning feels slow**: shrink the search areas with GRAB AREA. Large areas cost the most.
 - **Keys or clicks do nothing**: run the `.bat` as administrator, and click into Roblox once so it has focus.
 - **Close the stats window** (or press Ctrl+C in the console) to stop the macro completely.
+
+## Auto rejoin (when the game kicks you)
+
+Roblox kicks you out now and then. The **Disconnected** box (Leave / Reconnect) is searched for all the time. The moment it shows up, **every other image search stops** and the rejoin protocol runs:
+
+1. Click **Leave** (the left button of the box)
+2. Click **Search** once, press Ctrl+A, type the game name (default `Jujutsu: Zero`, changeable in settings) and press Enter
+3. **Play** (big blue button) x3 -> **Gamemodes** x1 -> **Raids** x3 -> **Create** x3 -> **Projection** x3 -> **Calamity** x3
+4. **Modifiers** x1 -> **Weaken** x1 -> **Friends Only** x1 -> **Create** x3 -> **Start** x5
+
+It runs strictly in order, step 1 to 13. Each step only searches for its own image, glides the mouse to it, clicks, then waits for that button to leave the screen before the next step starts, so the two Create buttons can never be mixed up (Create is only searched at step 6 and step 12, and a hit is ignored if the other Create fits better at the same spot). The stats window shows `REJOINING step N/13`. If the Disconnected box is still there or comes back, it goes back to step 1. When Start has been clicked the normal macro carries on until the next kick.
+
+- Every rejoin image has its own search area with the same X/Y boxes and **GRAB AREA / BL / TR** buttons (inside the **AUTO REJOIN** card). **Fullscreen scan** overrides all of them.
+- The Disconnected box is scanned non-stop, so give it a small search area for the best speed.
+- The stats window shows `REJOINING` while it runs and counts the rejoins.
+- If a step image is not found, the log warns every 60 seconds. Click it yourself and the protocol carries on from there. The stop key aborts it.
+- Switch it off with **Auto rejoin: Off**.
+
+## Slots: key or click
+
+Under **SLOTS**, **How to equip a slot** can be **Press key** (presses 1 / 2) or **Click position**. With Click position you set an X/Y for slot 1 and slot 2 (**GRAB POINT**, then hover the slot for 3 seconds) and the mouse glides there and clicks it once. With a middle-mouse Lock On, the mouse glides back to where Ready was before it locks on.
+
+## The log file (if something bugs)
+
+Every run writes `logs\session_<date>_<time>.log` (the last 10 are kept). It has your settings, every action with a time stamp, a heartbeat line every 30 seconds, and full error details if anything crashes. **Send me that file** when something goes wrong.
+
+- **Frozen scanner or stuck mouse action:** a WARN is printed and a thread dump (what every part of the macro is doing) is written to the log.
+- **Rejoin step stuck for 20 seconds:** the log gets the best match score for that image (and its rival, and the Disconnected box) next to the score it needs, and `logs\stuck_stepNN_area.png` (what the search box sees) plus `logs\stuck_stepNN_screen.png` (the whole screen) are saved. Send those too.
