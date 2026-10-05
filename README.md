@@ -1,4 +1,4 @@
-# Calamity Cleaver
+# Calamity Cleaver (macro currently has a small bug set Create1 and 2 to only scan the area its in stead of full screen same for start)
 
 DOWNLOAD BOTH ZIPS AND EXTRACT INTO THE SAME FOLDER. (file was to big had to split into 2 parts sorry)
 
